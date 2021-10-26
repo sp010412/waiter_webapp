@@ -1,28 +1,27 @@
 -- CREATE DATABASE waiter_app;
-
-create table weeks (
+CREATE TABLE weeks (
     id serial not null primary key,
-    week_day VARCHAR(10) NOT NULL,
+    week_day VARCHAR(100) NOT NULL
 );
 
-create table stuffData (
+CREATE TABLE stuff (
     id serial not null primary key,
-    user_name VARCHAR(10) NOT NULL,
+    user_name VARCHAR(10) NOT NULL
 );
 
-create table adminData (
+CREATE TABLE adminData (
     id serial not null primary key,
-    user_id text NOT NULL,
+    user_id int,
     weeks_id int,
+    foreign key (weeks_id) references weeks(id),
     foreign key (user_id) references stuff(id)
-    foreign key (weeks_id) references weeks(id)
 );
 
 -- Script
-insert into weeks (week_day) values('Monday');
-insert into weeks (week_day) values('Tuesday');
-insert into weeks (week_day) values('Wednesday'); 
-insert into weeks (week_day) values('Thursday'); 
-insert into weeks (week_day) values('Friday'); 
-insert into weeks (week_day) values('Saturday'); 
-insert into weeks (week_day) values('Sunday'); 
+INSERT INTO weeks (week_day) values('Monday');
+INSERT INTO weeks (week_day) values('Tuesday');
+INSERT INTO weeks (week_day) values('Wednesday'); 
+INSERT INTO weeks (week_day) values('Thursday'); 
+INSERT INTO weeks (week_day) values('Friday'); 
+INSERT INTO weeks (week_day) values('Saturday'); 
+INSERT INTO weeks (week_day) values('Sunday');

@@ -3,39 +3,36 @@
     <h1>Welcome</h1>
 
 
-    <h3>User ID:</h3>
-    <input type="text" name="inputBox" value="" placeholder="User name" class="">
+    <h3>User ID: {{user}} </h3>
 
+    <form action="/submitBtn/{{user}}" method="POST">
 
-    <fieldset class="weekday-select" data-name="days" id="days">
-        <div class="week-parts">
-            <label>
-                <input type="checkbox" value="1" name="days"> Monday
-            </label>
-            <label>
-                <input type="checkbox" value="2" name="days"> Tuesday
-            </label>
-            <label>
-                <input type="checkbox" value="3" name="days"> Wednesday
-            </label>
-            <label>
-                <input type="checkbox" value="4" name="days"> Thursday
-            </label>
-            <label>
-                <input type="checkbox" value="5" name="days"> Friday
-            </label>
-            <label>
-                <input type="checkbox" value="6" name="days"> Saturday
-            </label>
-            <label>
-                <input type="checkbox" value="0" name="days"> Sunday
-            </label>
-        </div>
-    </fieldset>
+        <fieldset class="weekday-select" data-name="days" id="days">
+            <div class="week-parts">
+                <label>
+                    <input type="checkbox" value="Monday" name="days"> Monday
+                </label>
+                <label>
+                    <input type="checkbox" value="Tuesday" name="days"> Tuesday
+                </label>
+                <label>
+                    <input type="checkbox" value="Wednesday" name="days"> Wednesday
+                </label>
+                <label>
+                    <input type="checkbox" value="Thursday" name="days"> Thursday
+                </label>
+                <label>
+                    <input type="checkbox" value="Friday" name="days"> Friday
+                </label>
+                <label>
+                    <input type="checkbox" value="Saturday" name="days"> Saturday
+                </label>
+                <label>
+                    <input type="checkbox" value="Sunday" name="days"> Sunday
+                </label>
+            </div>
+        </fieldset>
 
-
-
-    <form action="/submitBtn" method="GET">
         <button type="submit" name="">Submit or Edit</button>
     </form>
 

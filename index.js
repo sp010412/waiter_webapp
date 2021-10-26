@@ -52,51 +52,49 @@ app.use(bodyParser.json())
 
 
 const waiterInsta = waiter(pool);
-const Routes = routes(waiterInsta);
+//const Routes = routes(waiterInsta);
 
 // Welcome page
-app.get('/', function (req, res) {
+app.get('/', async function (req, res) {
     res.render('login')
 });
 
-app.get('/stuffLogin', function (req, res) {
-    res.render('stuffLogin')
+app.post('/loginBtn', async function (req, res) {
+    try {
+        var userId = req.body.inputBox;
+        //console.log(userId);
+        await waiterInsta.login(userId);
+        res.redirect(`stuffLogin/${userId}`)
+    } catch (err) {
+        console.log(err)
+    }
 });
 
-app.get('/adminLogin', function (req, res) {
-    res.render('adminLogin')
+app.get('/stuffLogin/:username', async function (req, res) {
+    var user = req.params.username;
+    res.render('stuffLogin', {
+        user
+    })
 });
 
-app.get('/stuffBtn', function (req, res) {
-    res.render('stuffLogin')
+app.post('/submitBtn/:username', async function (req, res) {
+
+    var user = req.params.username;
+    //console.log(user);
+   // var stuffWorkDays = req.body.days;
+    //console.log(stuffWorkDays)
+    // console.log(id)
+
+    //await waiterInsta.data(user, stuffWorkDays);
+
+    res.redirect(`/stuffLogin/${user}`)
+
 });
 
-app.get('/adminBtn', function (req, res) {
-    res.render('adminLogin')
-});
-
-app.get('/logOutBtn', function (req, res) {
-    res.render('login')
-});
-
-app.get('/submitBtn', function (req, res) {
-    res.redirect('stuffLogin')
-});
+// app.post('/resetButton', Routes.reset);
 
 
-
-
-// Stuff page 
-
-
-
-// Employers page
-
-
-app.post('/resetButton', Routes.reset);
-
-
-let PORT = process.env.PORT || 2013;
+let PORT = process.env.PORT || 2017;
 
 app.listen(PORT, function () {
     console.log('App starting on port', PORT);
