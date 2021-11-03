@@ -80,15 +80,8 @@ app.get('/waiter/:username', async function (req, res) {
 app.post('/submitBtn/:username', async function (req, res) {
     try {
     var user = req.params.username;
-    //console.log(user);
     var stuffWorkDays = req.body.days;
-//console.log(stuffWorkDays)
-    //console.log(await waiterInsta.data(user, stuffWorkDays))
-    
-    // await waiterInsta.data(user, stuffWorkDays);
-
     await waiterInsta.data(user,stuffWorkDays);
-    // console.log(jab)
 
     res.redirect(`/waiter/${user}`)
 
@@ -97,6 +90,12 @@ app.post('/submitBtn/:username', async function (req, res) {
     console.log(err)
 }
 });
+
+
+app.get('/logOutBtn', function (req, res) {
+    res.render('login')
+});
+
 
 // app.post('/resetButton', Routes.reset);
 
