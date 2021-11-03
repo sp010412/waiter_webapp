@@ -9,14 +9,15 @@ module.exports = function waiter(stored) {
         }
     }
 
-    async function data(id, values) {
+    async function data(id, days) {
         const stuffId = await pool.query('SELECT id FROM stuff WHERE user_name = $1', [id]);
-        const weekdayId = await pool.query('SELECT id FROM weeks  WHERE week_day = $1', [values]);
-        // const dbUser = await pool.query('SELECT user_id from adminData');
-        // const dbWeeks = await pool.query('SELECT weeks_id from adminData');
-
-        await pool.query('INSERT INTO adminData (user_id, weeks_id) values($1,$2)', [stuffId], [weekdayId]);
+        for (let i = 0; i < days.length; i++) {
+            var schedule = days[i];
+            const weekdayId = await pool.query('SELECT id FROM weeks  WHERE week_day = $1', [schedule]);
+            await pool.query('INSERT INTO adminData (user_id, weeks_id) values($1,$2)', [stuffId.rows[0].id, weekdayId.rows[0].id]);
+        }
     }
+
 
     return {
         login,

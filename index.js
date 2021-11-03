@@ -64,31 +64,38 @@ app.post('/loginBtn', async function (req, res) {
         var userId = req.body.inputBox;
         //console.log(userId);
         await waiterInsta.login(userId);
-        res.redirect(`stuffLogin/${userId}`)
+        res.redirect(`waiter/${userId}`)
     } catch (err) {
         console.log(err)
     }
 });
 
-app.get('/stuffLogin/:username', async function (req, res) {
+app.get('/waiter/:username', async function (req, res) {
     var user = req.params.username;
-    res.render('stuffLogin', {
+    res.render('waiter', {
         user
     })
 });
 
 app.post('/submitBtn/:username', async function (req, res) {
-
+    try {
     var user = req.params.username;
     //console.log(user);
-   // var stuffWorkDays = req.body.days;
-    //console.log(stuffWorkDays)
-    // console.log(id)
+    var stuffWorkDays = req.body.days;
+//console.log(stuffWorkDays)
+    //console.log(await waiterInsta.data(user, stuffWorkDays))
+    
+    // await waiterInsta.data(user, stuffWorkDays);
 
-    //await waiterInsta.data(user, stuffWorkDays);
+    await waiterInsta.data(user,stuffWorkDays);
+    // console.log(jab)
 
-    res.redirect(`/stuffLogin/${user}`)
+    res.redirect(`/waiter/${user}`)
 
+
+} catch (err) {
+    console.log(err)
+}
 });
 
 // app.post('/resetButton', Routes.reset);
