@@ -46,7 +46,9 @@ app.use(express.static('public'));
 // app.use(flash());
 
 // parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.urlencoded({
+    extended: true
+}))
 // parse application/json
 app.use(bodyParser.json())
 
@@ -59,12 +61,19 @@ app.get('/', async function (req, res) {
     res.render('login')
 });
 
+
 app.post('/loginBtn', async function (req, res) {
     try {
         var userId = req.body.inputBox;
         //console.log(userId);
-        await waiterInsta.login(userId);
-        res.redirect(`waiter/${userId}`)
+        if (userId != 'Saneliswa') {
+            await waiterInsta.login(userId);
+
+            res.redirect(`waiter/${userId}`)
+        } else {
+            res.redirect(`adminLogin/${userId}`)
+        }
+
     } catch (err) {
         console.log(err)
     }
@@ -77,18 +86,25 @@ app.get('/waiter/:username', async function (req, res) {
     })
 });
 
+app.get('/adminLogin/:username', async function (req, res) {
+    var user = req.params.username;
+    res.render('adminLogin', {
+        user
+    })
+});
+
 app.post('/submitBtn/:username', async function (req, res) {
     try {
-    var user = req.params.username;
-    var stuffWorkDays = req.body.days;
-    await waiterInsta.data(user,stuffWorkDays);
+        var user = req.params.username;
+        var stuffWorkDays = req.body.days;
+        await waiterInsta.data(user, stuffWorkDays);
 
-    res.redirect(`/waiter/${user}`)
+        res.redirect(`/waiter/${user}`)
 
 
-} catch (err) {
-    console.log(err)
-}
+    } catch (err) {
+        console.log(err)
+    }
 });
 
 
